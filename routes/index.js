@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index.njk', { title: 'Express' });
+router.get('/', function (req, res, next) {
+    res.render('index.njk', {
+        title: 'Login ALC',
+    });
 });
 
 module.exports = router;
