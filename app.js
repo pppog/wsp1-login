@@ -3,6 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const nunjucks = require('nunjucks');
+const bcrypt = require('bcrypt');
+
 
 const indexRouter = require('./routes/index');
 
@@ -11,6 +13,12 @@ const app = express();
 nunjucks.configure('views', {
     autoescape: true,
     express: app
+});
+
+bcrypt.hash("password", 10, function (err, hash) {
+    // Store hash in your password DB.
+    console.log(hash);
+    return res.json(hash);
 });
 
 app.use(logger('dev'));
