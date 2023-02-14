@@ -34,18 +34,27 @@ router.post('/login', async function (req, res, next) {
         errors.push('Password is Required');
     }
     console.log(errors);
-    if (errors.length > 0) {
-        res.json([errors]);
-    }
 
     bcrypt.compare(password, users[0].password, function (err, result) {
         if (result === true) {
+            if (users[0].name === username){
+                res.location('/profile');
+                res.json('Login Success');
+                console.log('Login Success');
+            }
+            else {
+                res.json('Invalid Username');
+            }
+            console.log('yo');
             // logga inte in om username = undefined
-        res.json('Login Success');
         } else {
-            res.json('Invalid username or password')
+            errors.push('Invalid username or password');
+        }
+        if (errors.length > 0) {
+            res.json([errors]);
         }
     });
+    
 });
 
 router.get('/dashboard', function (req, res, next) {
