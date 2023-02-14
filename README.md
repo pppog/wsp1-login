@@ -1,6 +1,7 @@
 # Login
 
-Setup är gjort ```express --no-view --git -css sass``` så kör template och klona.
+Setup är gjort ```express --no-view --git -css sass``` så forka för din grupp.
+Kör sedan ```npm install``` för att installera alla paket.
 
 ```bash
 cd wsp1-login
@@ -17,15 +18,18 @@ En användare ska kunna registrera ett nytt konto med användarnamn och lösenor
 * Databas, tabell för användare
 * Routes enligt REST praxis
 * Paket, node, express med nunjucks, sass
-* Kodstil, detta ska bestämma, dokumentera och använda .prettierrc
+* Kodstil, detta ska bestämma, dokumentera och använda .prettierrc. Ni kan behöva installera prettier för vscode för att faktiskt använda det.
 
 ## Databas
 
 Databas ska planeras och skapas.
-Tabellen för användare ska heta ```users``` och måste innehålla fält för ```name``` och ```password```. Där password är en varchar för att rymma en bcrypt hash av lösenordet.
+Ni behöver skapa den på skolservern. Använd lämpligt prefix för att visa att er databas tillhör eran grupp.
 
 ## Routes
 
+Något liknande detta kan vara en start.
+
+* index
 * get register
 * post register
 * get login
@@ -37,7 +41,7 @@ Tabellen för användare ska heta ```users``` och måste innehålla fält för `
 
 ## Paket
 
-Vilka paket kommer ni att behöva för att kunna köra projektet.
+Vilka paket kommer ni att behöva för att kunna köra projektet. Saknas något utöver det som finns?s
 
 # Arbetsgång
 
@@ -88,3 +92,5 @@ npm run test:4
 Finns i mappen [instruktioner](/instruktioner/).
 Vi kommer att arbeta i grupperna och följa instruktionerna.
 Ni kommer att få en tidsram och fördelning om hur ni ska gå tillväga.
+
+Tänk på att alla i gruppen ska vara delaktiga så att ni tillsammans hjälps åt med detta. Ni har gruppledare som har ett ansvar, men det betyder inte att ni andra kan slappna av.
