@@ -35,7 +35,7 @@ describe('3. Authentication', () => {
                 expect.assertions(2);
                 const response = await request(app).get('/profile');
                 expect(response.statusCode).toBe(401);
-                expect(response.text).toContain('Access denied');
+                expect(response.text).toContain('Access Denied');
             });
         });
         describe('POST /logout', () => {
@@ -43,7 +43,7 @@ describe('3. Authentication', () => {
                 expect.assertions(2);
                 const response = await request(app).post('/logout');
                 expect(response.statusCode).toBe(401);
-                expect(response.text).toContain('Access denied');
+                expect(response.text).toContain('Access Denied');
             });
         });
     });

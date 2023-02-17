@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const pool = require('../utils/database');
+const { response } = require('express');
 const promisePool = pool.promise();
 
 
@@ -45,7 +46,7 @@ router.post('/login', async function (req, res, next) {
     bcrypt.compare(password, users[0].password, function (err, result) {
         if (result === true) {
             req.session.loggedin = users[0].id;
-            return res.redirect('/profile/'+username);
+            return res.redirect('/profile');
         } else {
             return res.json('Invalid username or password');
         }
@@ -58,13 +59,16 @@ router.get('/dashboard', function (req, res, next) {
     });
 });
 
-router.get('/profile/:username', function (req, res, next) {
+router.get('/profile', async function (req, res, next) {
+
     if (req.session.loggedin === undefined) {
-        return res.redirect('/login');
+        
+        return res.status(401).send('Access Denied');
     } else {
+    const [username] = await promisePool.query('SELECT * FROM fmusers WHERE id = ?', [req.session.loggedin],);
     res.render('profile.njk', {
-        title: 'profile',
-        username: req.params.username,
+        title: 'Profile',
+        username: username[0].name,
     });}
 });
 
@@ -76,8 +80,45 @@ router.get('/crypt/:password', function (req, res, next) {
     });
 });
 
-router.post('/logout', async function (req, res, next){
+router.post('/register', async function (req, res, next){
+    const { username, password, passwordConfirmation } = req.body;
+    const [users] = await promisePool.query('SELECT * FROM fmusers');
+    const errors = [];
+    
+    if (username === '') {
+        //console.log('Username is Required');
+        errors.push('Username is Required');
+    } else {
+    }
 
+    if (password === '') {
+        //console.log('Password is Required');
+        errors.push('Password is Required');
+    }
+    if (password !== passwordConfirmation) {
+        errors.push('Passwords do not match');
+    }
+    console.log([errors]);
+    if (errors.length > 0) {
+        return res.json([errors]);
+    }
+});
+
+router.get('/register', async function (req, res, next){
+    res.render('register.njk', {
+        title: 'Register ALC',
+    });
+});
+
+router.post('/logout', async function (req, res, next){
+    if (req.session.loggedin === undefined) {
+        
+        return res.status(401).send('Access Denied');
+    }
+    else {
+        req.session.loggedin=undefined;
+        return res.redirect('/')
+    }
 });
 router.get('/kaka', function(req, res, next) {
     if (req.session.views) {
