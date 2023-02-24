@@ -92,7 +92,7 @@ describe('2. Login', () => {
                 .post('/login')
                 .send({ username: user1.name, password: user1.password });
             expect(response.statusCode).toBe(302);
-            expect(response.header.location).toBe('/profile/'+user1.name);
+            expect(response.header.location).toBe('/profile');
         });
         it('should not login an user with incorrect credentials', async () => {
             expect.assertions(2);

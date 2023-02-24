@@ -19,7 +19,7 @@ describe('1. Setup', () => {
         it('should return a html response with title', async () => {
             expect.assertions(1);
             const response = await supertest(app).get('/');
-            expect(response.text).toContain('<h1>Login ALC</h1>');
+            expect(response.text).toContain('<h1>Home ALC</h1>');
         });
     });
 
